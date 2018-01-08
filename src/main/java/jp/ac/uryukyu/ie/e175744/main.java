@@ -14,24 +14,30 @@ public class main {
 
         List<Integer> card_set = a.duck();
 
-        int[] enemy = new int[7];
         int my_card = card_set.get(0) + card_set.get(1);
         int enemy_card = card_set.get(2) + card_set.get(3);
         int enemy_card_show = card_set.get(2);
         String input, reply;
-
-        System.out.println("現在の私の手札は" + my_card + "です。");
-        System.out.println(enemy_card);
-        System.out.println("相手の手札の１枚は" + enemy_card_show + "です。");
+        int drawcard =4;
+        
         Scanner in = new Scanner(System.in);
-        int count = 0;
 
         while (true) {
-            System.out.println();
+            System.out.println("現在の私の手札は" + my_card + "です。");
+            System.out.println(enemy_card);
+            System.out.println("相手の手札の１枚は" + enemy_card_show + "です。");
+
             System.out.println("手札を交換しますか？");
             input = in.nextLine();
+            if(input.equals("yes") == true){
+                 my_card = my_card+ card_set.get(drawcard);
+                 drawcard++;
+            }else if(input.equals("no") == true){
+                break;
+            }else{
+                System.out.println("yesかnoを入力してください。");
+            }
 
-            break;
         }
     }
 }
