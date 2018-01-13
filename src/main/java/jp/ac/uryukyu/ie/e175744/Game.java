@@ -4,33 +4,48 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.*;
 
+/*
+*ゲームクラス
+* List<Integer> card_set;//トランプの山札
+* List<String> sp_card;//１０以上のときの画面に表示する絵柄
+* private static int drawcard;//山札から引いた数
+* */
 public class Game {
+
     List<Integer> card_set = new ArrayList<Integer>();
     List<String> sp_card = new ArrayList<String>();
     private static int drawcard =4;
+    int mode=0;
+    int natural=0;
     String input;
-
+    Scanner in = new Scanner(System.in);
+    /*
+    * メソッド。山札から初期の手札を引いた後の処理を行う
+    * @param　my_card 手札の合計
+    * @param　enemy_card 敵の手札の合計
+    * @param drawcard 山札から引いた数
+    * */
     public void game(int my_card,int enemy_card,int drawcard) {
-        Game a = new Game();
-        Scanner in = new Scanner(System.in);
-
+        Game game= new Game();
         while (true) {
-            System.out.println("手札の合計は"+my_card+"です。");
-            System.out.println(enemy_card);
-            System.out.println("相手の手札の１枚は" + card_set.get(2) + "です。");
-            if(my_card==21){
-                break;
-            }else if(enemy_card==21){
-                break;
-            }
-            System.out.println("手札を交換しますか？");
-            input = in.nextLine();
-            if(input.equals("yes") == true){
-                my_card +=  card_set.get(drawcard);
-                if(a.Check(card_set,sp_card,1,my_card)==1){
-                    my_card+=10;
-                }
-                drawcard++;
+            if(card_set.get(0)==1&&card_set.get(1)==10){
+            break;
+        }else if(card_set.get(0)==10&&card_set.get(1)==1){
+            break;
+        }else if(card_set.get(2)==10&&card_set.get(3)==1){
+            break;
+        }else if(card_set.get(3)==10&&card_set.get(2)==1){
+            break;
+        }
+        natural+=1;
+        System.out.println("手札の合計は"+my_card+"です。");
+        System.out.println("相手の手札の１枚は" + card_set.get(2) + "です。");
+        System.out.println("手札を交換しますか？");
+        input = in.nextLine();
+        if(input.equals("yes") == true){
+            my_card +=  card_set.get(drawcard);
+            game.Check(card_set,sp_card,drawcard);
+            game.setDrawcard(drawcard+1);
                 if(my_card>21) {
                     System.out.println("dauto!!");
                     break;
@@ -46,12 +61,16 @@ public class Game {
         }if(enemy_card>21){
             System.out.println("dauto!!");
         }
-        a.judge(my_card,enemy_card,drawcard);
-
+        if(natural>0){
+        for(int A=Game.A_check(mode);A>0;A-=1){
+            my_card+=10;
+        }
+        }
+        game.judge(my_card,enemy_card,natural);
     }
-
-
-
+    /*
+    *メソッド　トランプの山札を作る。ブラックジャックでは１０以上の数字は１０とする。
+    * */
     public  List<Integer> duck() {
 
         int count = 0;
@@ -66,13 +85,14 @@ public class Game {
 
         return card_set;
     }
+    /*
+    * メソッド　勝敗を決定して、それを表示する。
+    * */
+    public  void judge(int my_card,int enemy_card,int natural) {
 
-    public  void judge(int my_card,int enemy_card,int drawcard) {
-
-
-        if(my_card==21&&drawcard==4&&enemy_card<21){
+        if(my_card==11&&natural==0&&enemy_card<21){
             System.out.println("ナチュラルブラックジャック！！あなたの勝ちです。");
-        }else if(enemy_card==21&&drawcard==4&&my_card<21){
+        }else if(enemy_card==11&&natural==0&&my_card<21){
             System.out.println("ナチュラルブラックジャック！！あなたの負けです。");
         }else if(my_card==21) {
             System.out.println("ブラックジャック！！　あなたの勝ちです。");
@@ -98,29 +118,43 @@ public class Game {
         return sp_card;
     }
 
-    public int Check(List<Integer> card_set,List<String> sp_card,int drawcard,int my_card) {
-        Scanner in = new Scanner(System.in);
-       int mode=0;
+    public int Check(List<Integer> card_set,List<String> sp_card,int drawcard) {
         if(card_set.get(drawcard)==10){
             System.out.println(sp_card.get(drawcard)+"を引いた！");
         }else if (card_set.get(drawcard)==1) {
             System.out.println("Aを引いた！Aは１１と１のどちらかで使用できます。");
-            System.out.println("使用したい番号を数字で入力してください。");
-            while (true) {
-                input = in.nextLine();
-                if (input.equals("1") == true) {
-                    break;
-                } else if (input.equals("11") == true) {
-                  mode+=1;
-                          break;
-                } else {
-                    System.out.println("1か11を入力してください");
-                }}
+            mode+=1;
             }else{
                 System.out.println(card_set.get(drawcard) + "を引いた！");
             }
         return mode;
         }
+
+    public static int A_check(int mode){
+        int A_check=0;
+        String input;
+        Scanner in = new Scanner(System.in);
+        if(mode>0){
+        System.out.println("Aが"+mode+"あります。Aは現在１としてカウントされています。");
+        for (int a=mode;a>0;a-=1){
+            System.out.println("Aを１枚１１にしますか？yesかnoを入力してください" );
+            while (true) {
+                input = in.nextLine();
+                if (input.equals("yes") == true) {
+                    A_check+=1;
+                    break;
+                } else if (input.equals("no") == true) {
+                    break;
+                } else {
+                    System.out.println("yesかnoを入力してください");
+                    }
+                }
+            }
+        }
+        return A_check;
+    }
+
+
      public static int getDrawcard(){return drawcard;}
      public void setDrawcard(int drawcard){ this.drawcard = drawcard; }
 }
