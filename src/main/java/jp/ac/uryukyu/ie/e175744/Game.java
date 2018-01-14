@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.*;
 
-/*
+/**
 *ゲームクラス
 * List<Integer> card_set;//トランプの山札
 * List<String> sp_card;//１０以上のときの画面に表示する絵柄
 * private static int drawcard;//山札から引いた数
-* */
+*/
 public class Game {
 
     List<Integer> card_set = new ArrayList<Integer>();
@@ -19,12 +19,12 @@ public class Game {
     int natural=0;
     String input;
     Scanner in = new Scanner(System.in);
-    /*
+    /**
     * メソッド。山札から初期の手札を引いた後の処理を行う
-    * @param　my_card 手札の合計
-    * @param　enemy_card 敵の手札の合計
+    * @param my_card 手札の合計
+    * @param enemy_card 敵の手札の合計
     * @param drawcard 山札から引いた数
-    * */
+     */
     public void game(int my_card,int enemy_card,int drawcard) {
         Game game= new Game();
         while (true) {
@@ -40,14 +40,14 @@ public class Game {
         natural+=1;
         System.out.println("手札の合計は"+my_card+"です。");
         System.out.println("相手の手札の１枚は" + card_set.get(2) + "です。");
-        System.out.println("手札を交換しますか？");
+        System.out.println("手札を１枚追加しますか？");
         input = in.nextLine();
         if(input.equals("yes") == true){
             my_card +=  card_set.get(drawcard);
             game.Check(card_set,sp_card,drawcard);
             game.setDrawcard(drawcard+1);
                 if(my_card>21) {
-                    System.out.println("dauto!!");
+                    System.out.println("Bust!!手札が２１をこえました。あなたの負けです。");
                     break;
                 }
             }else if(input.equals("no") == true){
@@ -56,10 +56,11 @@ public class Game {
                 System.out.println("yesかnoを入力してください。");
             }
         }
-        if(enemy_card<16){
+        if(enemy_card<16&&my_card<22){
             enemy_card+=card_set.get(drawcard);
-        }if(enemy_card>21){
-            System.out.println("dauto!!");
+        }
+        if(enemy_card>21){
+            System.out.println("Bust!!相手の手札が２１をこえたため、あなたの勝ちです！");
         }
         if(natural>0){
         for(int A=Game.A_check(mode);A>0;A-=1){
@@ -68,9 +69,9 @@ public class Game {
         }
         game.judge(my_card,enemy_card,natural);
     }
-    /*
+    /**
     *メソッド　トランプの山札を作る。ブラックジャックでは１０以上の数字は１０とする。
-    * */
+    */
     public  List<Integer> duck() {
 
         int count = 0;
@@ -85,9 +86,12 @@ public class Game {
 
         return card_set;
     }
-    /*
+    /**
     * メソッド　勝敗を決定して、それを表示する。
-    * */
+    * @param my_card 自分の手札の合計
+    * @param enemy_card 敵の手札の合計
+    * @param natural 初期の手札が２１か調べるもの
+    */
     public  void judge(int my_card,int enemy_card,int natural) {
 
         if(my_card==11&&natural==0&&enemy_card<21){
@@ -106,8 +110,11 @@ public class Game {
             System.out.println("Draw!");
         }
     }
-
-    public List<String> SpName(List<Integer> card_set){
+    /**
+    * メソッド　山札から１０が出たときの画面に表示する絵柄をランダムにする
+    *@return sp_card シャッフルされた絵柄の入ったリスト
+    */
+    public List<String> SpName(){
         for (int n=0;n<4;n++){
             sp_card.add("10");
             sp_card.add("J");
@@ -118,18 +125,30 @@ public class Game {
         return sp_card;
     }
 
+    /** メソッド　引いた手札を調べて対応した文を出力する
+     * @param card_set　山札
+     * @param sp_card　１０を引いたとき表示する絵柄
+     * @param drawcard　引いた数
+     * @return mode Aを引いた数
+     */
     public int Check(List<Integer> card_set,List<String> sp_card,int drawcard) {
         if(card_set.get(drawcard)==10){
             System.out.println(sp_card.get(drawcard)+"を引いた！");
         }else if (card_set.get(drawcard)==1) {
             System.out.println("Aを引いた！Aは１１と１のどちらかで使用できます。");
+            System.out.println("デフォルトでは１とします。");
             mode+=1;
             }else{
                 System.out.println(card_set.get(drawcard) + "を引いた！");
             }
-        return mode;
+            return mode;
         }
 
+    /**
+     * メソッド　Aを引いた際に
+     * @param mode Aが出ている数をカウントしている。
+     * @return A_check Aを１１にした数
+     */
     public static int A_check(int mode){
         int A_check=0;
         String input;
@@ -154,8 +173,16 @@ public class Game {
         return A_check;
     }
 
-
+    /**
+     * getterメソッド　
+     * @return drawcard 引いた数を返す
+     */
      public static int getDrawcard(){return drawcard;}
+
+    /**
+     *　setterメソッド
+     * @param drawcard 引いた数
+     */
      public void setDrawcard(int drawcard){ this.drawcard = drawcard; }
 }
 

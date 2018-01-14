@@ -10,7 +10,7 @@ public class main {
        Game game = new Game();
 
         List<Integer> card_set = game.duck();
-        List<String> sp_card = game.SpName(card_set);
+        List<String> sp_card = game.SpName();
         int my_card = card_set.get(0) + card_set.get(1);
         int enemy_card = card_set.get(2) + card_set.get(3);
         game.Check(card_set,sp_card,0);
