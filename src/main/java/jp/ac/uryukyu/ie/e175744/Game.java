@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.*;
 
 /**
-*ゲームクラス
-* List<Integer> card_set;//トランプの山札
-* List<String> sp_card;//１０以上のときの画面に表示する絵柄
-* private static int drawcard;//山札から引いた数
-*/
+ *ゲームクラス
+ * List<Integer> card_set;//トランプの山札
+ * List<String> sp_card;//１０以上のときの画面に表示する絵柄
+ * private static int drawcard;//山札から引いた数
+ * int mode//Aの数
+ */
 public class Game {
 
     List<Integer> card_set = new ArrayList<Integer>();
     List<String> sp_card = new ArrayList<String>();
     private static int drawcard =4;
     int mode=0;
-    int natural=0;
     String input;
     Scanner in = new Scanner(System.in);
     /**
@@ -26,15 +26,12 @@ public class Game {
     * @param drawcard 山札から引いた数
      */
     public void game(int my_card,int enemy_card,int drawcard) {
+        int natural=0;
         Game game= new Game();
         while (true) {
             if(card_set.get(0)==1&&card_set.get(1)==10){
             break;
         }else if(card_set.get(0)==10&&card_set.get(1)==1){
-            break;
-        }else if(card_set.get(2)==10&&card_set.get(3)==1){
-            break;
-        }else if(card_set.get(3)==10&&card_set.get(2)==1){
             break;
         }
         natural+=1;
@@ -62,7 +59,7 @@ public class Game {
         if(enemy_card>21){
             System.out.println("Bust!!相手の手札が２１をこえたため、あなたの勝ちです！");
         }
-        if(natural>0){
+        if(natural>0 &&my_card<21){
         for(int A=Game.A_check(mode);A>0;A-=1){
             my_card+=10;
         }
@@ -96,8 +93,6 @@ public class Game {
 
         if(my_card==11&&natural==0&&enemy_card<21){
             System.out.println("ナチュラルブラックジャック！！あなたの勝ちです。");
-        }else if(enemy_card==11&&natural==0&&my_card<21){
-            System.out.println("ナチュラルブラックジャック！！あなたの負けです。");
         }else if(my_card==21) {
             System.out.println("ブラックジャック！！　あなたの勝ちです。");
         }else if(enemy_card==21){
