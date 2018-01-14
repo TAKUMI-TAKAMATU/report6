@@ -93,9 +93,9 @@ public class Game {
 
         if(my_card==11&&natural==0&&enemy_card<21){
             System.out.println("ナチュラルブラックジャック！！あなたの勝ちです。");
-        }else if(my_card==21) {
+        }else if(my_card==21&&enemy_card<21) {
             System.out.println("ブラックジャック！！　あなたの勝ちです。");
-        }else if(enemy_card==21){
+        }else if(enemy_card==21&&my_card<21){
             System.out.println("ブラックジャック！！　あなたの負けです。");
         }else if(my_card<enemy_card &&enemy_card<22){
             System.out.println("あなたの負けです。");
