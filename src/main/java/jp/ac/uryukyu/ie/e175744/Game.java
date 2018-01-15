@@ -95,14 +95,19 @@ public class Game {
             System.out.println("ナチュラルブラックジャック！！あなたの勝ちです。");
         }else if(my_card==21&&enemy_card<21) {
             System.out.println("ブラックジャック！！　あなたの勝ちです。");
+            System.out.println("こちらの手札："+my_card +"相手の手札："+enemy_card);
         }else if(enemy_card==21&&my_card<21){
             System.out.println("ブラックジャック！！　あなたの負けです。");
+            System.out.println("こちらの手札："+my_card+"相手の手札："+enemy_card);
         }else if(my_card<enemy_card &&enemy_card<22){
             System.out.println("あなたの負けです。");
+            System.out.println("こちらの手札："+my_card +"相手の手札："+enemy_card);
         }else if(my_card>enemy_card &&my_card<22){
             System.out.println("あなたの勝ちです。");
+            System.out.println("こちらの手札："+my_card +"相手の手札："+enemy_card);
         }else if(my_card==enemy_card){
             System.out.println("Draw!");
+            System.out.println("こちらの手札："+my_card +"相手の手札："+enemy_card);
         }
     }
     /**
