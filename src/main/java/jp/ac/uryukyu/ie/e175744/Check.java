@@ -3,6 +3,10 @@ package jp.ac.uryukyu.ie.e175744;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * チェッククラス
+ * private int A//Aのでた数
+ */
 public class Check {
    private int A=0;
     /** メソッド　引いた手札を調べて対応した文を出力する

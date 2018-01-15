@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 山札クラス
+ * List<Integer> card_set;//トランプの山札
+ * List<String> sp_card;//１０以上のときの画面に表示する絵柄　
+ */
 public class Duck {
-    /**
-     *メソッド　トランプの山札を作る。ブラックジャックでは１０以上の数字は１０とする。
-     * List<Integer> card_set;//トランプの山札
-     * List<String> sp_card;//１０以上のときの画面に表示する絵柄
-     */
     List<Integer> card_set = new ArrayList<Integer>();
     List<String> sp_card = new ArrayList<String>();
-
+    /**
+     *メソッド　トランプの山札を作る。ブラックジャックでは１０以上の数字は１０とする。
+     */
     public List<Integer> duck() {
         int count = 0;
         for (int i = 0; i < 40; i++) {
