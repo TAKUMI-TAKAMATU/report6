@@ -1,7 +1,5 @@
 package jp.ac.uryukyu.ie.e175744;
 import java.util.Scanner;
-import java.util.Collections;
-import java.util.ArrayList;
 import java.util.*;
 
 /**

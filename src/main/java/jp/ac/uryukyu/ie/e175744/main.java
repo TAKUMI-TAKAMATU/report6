@@ -2,7 +2,6 @@ package jp.ac.uryukyu.ie.e175744;
 
 
 import java.util.List;
-import java.util.Scanner;
 
 public class main {
     public static void main(String args[]) {
