@@ -11,7 +11,7 @@ public class main {
        Check ch =new Check();
 
         List<Integer> card_set = d.duck();
-        List<String> sp_card = d.SpName();
+        List<String> sp_card = d.spName();
         int my_card = card_set.get(0) + card_set.get(1);
         int enemy_card = card_set.get(2) + card_set.get(3);
 

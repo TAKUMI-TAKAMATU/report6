@@ -33,7 +33,7 @@ public class Duck {
      * メソッド　山札から１０が出たときの画面に表示する絵柄をランダムにする
      *@return sp_card シャッフルされた絵柄の入ったリスト
      */
-    public List<String> SpName(){
+    public List<String> spName(){
         for (int n=0;n<4;n++){
             sp_card.add("10");
             sp_card.add("J");
