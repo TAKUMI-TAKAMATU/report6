@@ -7,14 +7,15 @@ import java.util.Scanner;
 public class main {
     public static void main(String args[]) {
 
-       Game game = new Game();
+       Game g = new Game();
+       Duck d = new Duck();
+       Check ch =new Check();
 
-        List<Integer> card_set = game.duck();
-        List<String> sp_card = game.SpName();
+        List<Integer> card_set = d.duck();
+        List<String> sp_card = d.SpName();
         int my_card = card_set.get(0) + card_set.get(1);
         int enemy_card = card_set.get(2) + card_set.get(3);
-        game.Check(card_set,sp_card,0);
-        game.Check(card_set,sp_card,1);
-      game.game(my_card,enemy_card,game.getDrawcard());
+
+      g.game(my_card,enemy_card,g.getDrawcard(),card_set,sp_card);
     }
 }
